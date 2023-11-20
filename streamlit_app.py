@@ -18,9 +18,11 @@ streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado'
 # Display the table on the page.
 
 streamlit.dataframe(my_fruit_list)
+fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+streamlit.write('The user entered ', fruit_choice)
 
 import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/", + fruit_choice)
 streamlit.text(fruityvice_response)
 streamlit.header("Fruityvice Fruit Advice!")
 
@@ -29,5 +31,4 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response)
 # write your own comment - what does this do?
 streamlit.dataframe(fruityvice_normalized)
 
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+
